@@ -5,7 +5,19 @@ function initProgram() {
     const pdf = require('html-pdf');
 
 
-    
+    let username;
+    let userCompany;
+    let userRealName;
+    let profileImageURL;
+    let userLocation;
+    let userGitHubProfile;
+    let userBlog;
+    let userBio;
+    let numberOfPublicRepos;
+    let numberOfFollowers
+    let numberOfGitHubStars;
+    let numberOfUsersFollowing;
+    let userFavColor;
 
     
     inquirer.prompt([{
@@ -18,12 +30,12 @@ function initProgram() {
     }])
 
 
-    // .then(function ({ usernameProvided, favoriteColor }) {
-    //     username = usernameProvided;
-    //     userFavColor = favoriteColor;
-    //     const queryUrl = `https://api.github.com/users/${username}`;
-    //     goLookOne(queryUrl);
-    // });
+    .then(function ({ usernameProvided, favoriteColor }) {
+        username = usernameProvided;
+        userFavColor = favoriteColor;
+        const queryUrl = `https://api.github.com/users/${username}`;
+        goLookOne(queryUrl);
+    });
 
     // function makeHTML(answers){
     //     return `
@@ -48,5 +60,6 @@ function initProgram() {
     //     </html>`;
     //     }
 
-    prompt()
+    
 }
+initProgram()
