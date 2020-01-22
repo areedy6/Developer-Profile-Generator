@@ -44,26 +44,26 @@ function initProgram() {
             .then(function (response) {
 
                 profileImageURL = response.data.avatar_url;
-                // console.log(profileImageURL)
+                console.log(profileImageURL)
                 userRealName = response.data.name;
-                // console.log(userRealName)
+                console.log(userRealName)
                 userLocation = response.data.location;
-                // console.log(userLocation)
+                console.log(userLocation)
                 userCompany = response.data.company;
-                // console.log(userCompany)
+                console.log(userCompany)
                 userGitHubProfile = response.data.html_url;
-                // console.log(userGitHubProfile)
+                console.log(userGitHubProfile)
                 userBlog = response.data.blog;
-                // console.log(userBlog)
+                console.log(userBlog)
                 userBio = response.data.bio;
-                // console.log(userBio)
+                console.log(userBio)
                 numberOfPublicRepos = response.data.public_repos;
-                // console.log(numberOfPublicRepos)
+                console.log(numberOfPublicRepos)
                 numberOfFollowers = response.data.followers;
-                // console.log(numberOfFollowers)
+                console.log(numberOfFollowers)
                 numberOfUsersFollowing = response.data.following;
-                // console.log(numberOfUsersFollowing)
-                // makeHTMLFile(URL);
+                console.log(numberOfUsersFollowing)
+                makeHTMLFile(URL);
             })
             .catch(function (error) {
                 console.log(error);
@@ -71,7 +71,7 @@ function initProgram() {
             .finally(function () {
             });
     }
-    function makeHTMLFile(){
+    function makeHTMLFile(URL){
         const resume =
  
         `<!DOCTYPE html>
@@ -84,12 +84,6 @@ function initProgram() {
         </head>
         <body>
         
-        // <h1>My name is ${response.data.name}</h1>
-        // <p>I'm from ${response.data.location}</p>
-        
-        // <p>My favorite food is ${answers.food}</p>
-        // <p>Github: ${answers.github}</p>
-        // <p>LinkedIn: ${answers.linkedin}</p>
    
         
 
@@ -103,6 +97,11 @@ function initProgram() {
                 <span><a href="${userGitHubProfile}">Github</a></span>
                 <span><a href="${userBlog}">Blog</a></span>
             </h2>
+            <p>${userBio}</p>
+            <p>${numberOfPublicRepos}</p>
+            <p>${numberOfGitHubStars}</p>
+            <p>${numberOfFollowers}</p>
+            <p>${numberOfUsersFollowing}</p>
         
             </body>
         </html>`;
@@ -121,17 +120,6 @@ function initProgram() {
     });
 }
 
-function makePDFFile() {
-    const html = fs.readFileSync(`./html/${username}.html`, 'utf8');
-    const options = {
-        "height": "14in",
-        "width": "12in",
-    };
 
-    pdf.create(html, options).toFile(`./pdf/${username}.pdf`, function (err, res) {
-        if (err) return console.log(err);
-        console.log(res);
-    });
-}
 }
 initProgram()
