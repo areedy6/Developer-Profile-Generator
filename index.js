@@ -107,6 +107,9 @@ function initProgram() {
         </html>`;
          
 
+    // fs.mkdir('/', { recursive: true}, (err)
+    //  );
+
 
     fs.writeFile(`./html/${username}.html`, resume, function (err) {
 
