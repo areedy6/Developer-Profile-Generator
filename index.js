@@ -120,6 +120,17 @@ function initProgram() {
     });
 }
 
+function makePDFFile() {
+    const html = fs.readFileSync(`./html/${username}.html`, 'utf8');
+    const options = {
+        "height": "14in",
+        "width": "12in",
+    };
 
+    pdf.create(html, options).toFile(`./pdf/${username}.pdf`, function (err, res) {
+        if (err) return console.log(err);
+        console.log(res);
+    });
+}
 }
 initProgram()
