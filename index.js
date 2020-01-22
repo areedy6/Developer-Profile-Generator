@@ -37,29 +37,101 @@ function initProgram() {
         goLookOne(queryUrl);
     });
 
-    // function makeHTML(answers){
-    //     return `
-    //     <!DOCTYPE html>
-    //     <html lang="en">
-    //     <head>
-    //       <meta charset="UTF-8">
-    //       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    //       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    //       <title>Document</title>
-    //     </head>
-    //     <body>
-    //     <h1>My name is ${answers.name}</h1>
-    //     <p>I'm from ${answers.location}</p>
-    //     <p>I like ${answers.hobby}</p>
-    //     <p>My favorite food is ${answers.food}</p>
-    //     <p>Github: ${answers.github}</p>
-    //     <p>LinkedIn: ${answers.linkedin}</p>
-    //     </body>
-        
-        
-    //     </html>`;
-    //     }
 
-    
+    function goLookOne(URL) {
+
+        axios.get(URL)
+            .then(function (response) {
+
+                profileImageURL = response.data.avatar_url;
+                // console.log(profileImageURL)
+                userRealName = response.data.name;
+                // console.log(userRealName)
+                userLocation = response.data.location;
+                // console.log(userLocation)
+                userCompany = response.data.company;
+                // console.log(userCompany)
+                userGitHubProfile = response.data.html_url;
+                // console.log(userGitHubProfile)
+                userBlog = response.data.blog;
+                // console.log(userBlog)
+                userBio = response.data.bio;
+                // console.log(userBio)
+                numberOfPublicRepos = response.data.public_repos;
+                // console.log(numberOfPublicRepos)
+                numberOfFollowers = response.data.followers;
+                // console.log(numberOfFollowers)
+                numberOfUsersFollowing = response.data.following;
+                // console.log(numberOfUsersFollowing)
+                // makeHTMLFile(URL);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(function () {
+            });
+    }
+    function makeHTMLFile(){
+        const resume =
+ 
+        `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+          <title>Document</title>
+        </head>
+        <body>
+        
+        // <h1>My name is ${response.data.name}</h1>
+        // <p>I'm from ${response.data.location}</p>
+        
+        // <p>My favorite food is ${answers.food}</p>
+        // <p>Github: ${answers.github}</p>
+        // <p>LinkedIn: ${answers.linkedin}</p>
+   
+        
+
+    <div class="top-card" style="background: ${userFavColor}"></div>
+            <img src="${profileImageURL}" class="pic"></src>
+            <h1 class="hi">Hi!</h1>
+            <h1 class="my-name">My name is ${userRealName}</h1>
+            <h2 class="currently-at">I'm currently @ ${userCompany}</h2>
+            <h2 class="more-info">
+                <span><a href="https://www.google.com/maps/place/${userLocation.split(" ")}">${userLocation}</a></span>
+                <span><a href="${userGitHubProfile}">Github</a></span>
+                <span><a href="${userBlog}">Blog</a></span>
+            </h2>
+        
+            </body>
+        </html>`;
+         
+
+
+    fs.writeFile(`./html/${username}.html`, resume, function (err) {
+
+        if (err) {
+            return console.log(err);
+        }
+
+        console.log("Success!");
+
+        makePDFFile();
+    });
+}
+
+function makePDFFile() {
+    const html = fs.readFileSync(`./html/${username}.html`, 'utf8');
+    const options = {
+        "height": "14in",
+        "width": "12in",
+    };
+
+    pdf.create(html, options).toFile(`./pdf/${username}.pdf`, function (err, res) {
+        if (err) return console.log(err);
+        console.log(res);
+    });
+}
 }
 initProgram()
