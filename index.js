@@ -171,7 +171,7 @@ function initProgram() {
   
           .cards {
               position: absolute;
-              width: 2.95in;
+              width: 3.25in;
               height: 1in;
               border: #373737 2px solid;
               border-radius: 10px;
